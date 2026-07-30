@@ -29,6 +29,14 @@ This repository documents the exploitation of the **Agent Sudo** TryHackMe room.
 
 ---
 
+<p align="center">
+<img src="./ss/01_img.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> Agent Sudo
+</p>
+
 # Enumeration
 
 ## Service Discovery
@@ -52,7 +60,13 @@ The scan identified the following services:
 - HTTP
 - FTP
 - SSH
+<p align="center">
+<img src="./ss/02_nmap_img.png" width="900">
+</p>
 
+<p align="center">
+<b>Figure.</b> Nmap Scan on target ip.
+</p>
 The HTTP web application displayed the following message:
 
 ```
@@ -63,14 +77,14 @@ Use your own codename as user-agent to access the site.
 From,
 Agent R
 ```
-
 <p align="center">
-<img src="./ss/http_img.png" width="900">
+<img src="./ss/03_target_ip_webpage.png" width="900">
 </p>
 
 <p align="center">
-<b>Figure 1.</b> Text displayed on the webpage of the target ip.
+<b>Figure.</b> Text displayed on the webpage of the target ip.
 </p>
+
 ---
 
 # User-Agent Enumeration
@@ -85,7 +99,23 @@ The intercepted request was sent to **Intruder**.
 
 A payload containing characters from **A-Z** was used to brute-force the User-Agent header.
 
+<p align="center">
+<img src="./ss/burp_intruder.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure 3.</b> Burp Suite intruder payload panel.
+</p>
+
 ### Observation
+
+<p align="center">
+<img src="./ss/intruder02.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> intruder attack demonstration.
+</p>
 
 Most requests returned:
 
@@ -112,16 +142,23 @@ The modified request was forwarded using **Repeater**, replacing the header with
 ```
 User-Agent: C
 ```
+<p align="center">
+<img src="./ss/target_ip_webpage.png" width="900">
+</p>
 
-### Screenshot
+<p align="center">
+<b>Figure.</b> Text displayed on the webpage of the target ip.
+</p>
 
-```md
-![Burp Intruder](02_images/burp_intruder.png)
-```
+From the Repeater these requests of user agent C are sent to the browser to view the information.
 
-```md
-![HTTP 302 Response](02_images/http302.png)
-```
+<p align="center">
+<img src="./ss/http_img.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> USer Agent C page.
+</p>
 
 ---
 
@@ -142,12 +179,6 @@ The `ftp-anon` NSE script quickly verifies whether anonymous authentication is e
 ### Result
 
 Anonymous login was disabled.
-
-### Screenshot
-
-```md
-![FTP Anonymous Check](02_images/ftp_anon.png)
-```
 
 ---
 
@@ -173,12 +204,13 @@ hydra -l chris -P <WORDLIST> ssh://<TARGET_IP>
 Username : chris
 Password : crystal
 ```
+<p align="center">
+<img src="./ss/hydra.png" width="900">
+</p>
 
-### Screenshot
-
-```md
-![Hydra](02_images/hydra.png)
-```
+<p align="center">
+<b>Figure.</b> Bruteforce attack.
+</p>
 
 ---
 
@@ -204,13 +236,22 @@ get cutie.png
 - cute-alien.jpg
 - cutie.png
 
-### Screenshot
+<p align="center">
+<img src="./ss/ftp_login.png" width="900">
+</p>
 
-```md
-![FTP Download](02_images/ftp_download.png)
-```
+<p align="center">
+<b>Figure.</b> FTP Service login.
+</p>
 
----
+<p align="center">
+<img src="./ss/01.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> To_agentJ.
+</p>
+
 
 # Image Analysis
 
@@ -234,11 +275,14 @@ exiftool cutie.png
 
 The output indicated additional data after the PNG IEND chunk.
 
-### Screenshot
+<p align="center">
+<img src="./ss/02.png" width="900">
+</p>
 
-```md
-![ExifTool](02_images/exiftool.png)
-```
+<p align="center">
+<b>Figure.</b> metadata analysis.
+</p>
+
 
 ---
 
@@ -254,11 +298,14 @@ The `strings` utility extracts readable ASCII text from binary files, often reve
 strings cutie.png
 ```
 
-### Screenshot
+<p align="center">
+<img src="./ss/05.png" width="900">
+</p>
 
-```md
-![Strings Output](02_images/strings.png)
-```
+<p align="center">
+<b>Figure.</b> Strings Analysis.
+</p>
+
 
 ---
 
@@ -274,11 +321,14 @@ Binwalk scans binary files to identify embedded files, compressed archives, or a
 binwalk cutie.png
 ```
 
-### Screenshot
+<p align="center">
+<img src="./ss/03.png" width="900">
+</p>
 
-```md
-![Binwalk](02_images/binwalk.png)
-```
+<p align="center">
+<b>Figure.</b> Binwalk Scan.
+</p>
+
 
 ---
 
@@ -303,6 +353,13 @@ The recovered archive password was:
 ```
 alien
 ```
+<p align="center">
+<img src="./ss/07.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> Password Extraction.
+</p>
 
 ---
 
@@ -324,11 +381,14 @@ Password:
 alien
 ```
 
-### Screenshot
+<p align="center">
+<img src="./ss/08.png" width="900">
+</p>
 
-```md
-![7z Extraction](02_images/7z.png)
-```
+<p align="center">
+<b>Figure.</b> Password Extraction.
+</p>
+
 
 ---
 
@@ -354,6 +414,15 @@ Area51
 
 This value appeared to be a passphrase for the remaining image.
 
+
+<p align="center">
+<img src="./ss/09.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> Encrypted Text File.
+</p>
+
 ---
 
 # Steganography Analysis
@@ -375,6 +444,14 @@ JFIF
 ```
 
 confirming it was a valid JPEG image.
+
+<p align="center">
+<img src="./ss/10.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> JFIF format.
+</p>
 
 ---
 
@@ -406,11 +483,13 @@ message.txt
 
 was extracted.
 
-### Screenshot
+<p align="center">
+<img src="./ss/11.png" width="900">
+</p>
 
-```md
-![Steghide](02_images/steghide.png)
-```
+<p align="center">
+<b>Figure.</b> File Extraction.
+</p>
 
 ---
 
@@ -430,11 +509,21 @@ Chris
 
 These credentials were used to access the target as **James**.
 
-### Screenshot
+<p align="center">
+<img src="./ss/12.png" width="900">
+</p>
 
-```md
-![Message](02_images/message.png)
-```
+<p align="center">
+<b>Figure.</b> James User Login.
+</p>
+
+<p align="center">
+<img src="./ss/13.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> user flag detection.
+</p>
 
 ---
 
@@ -453,6 +542,13 @@ sudo -l
 ```
 (ALL, !root) /bin/bash
 ```
+<p align="center">
+<img src="./ss/14.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> Priviledge Escalation Demonstration.
+</p>
 
 ### Why sudo -l?
 
@@ -464,12 +560,21 @@ Reference:
 
 - ExploitDB
 
-### Screenshot
+<p align="center">
+<img src="./ss/15.png" width="900">
+</p>
 
-```md
-![Sudo Permissions](02_images/sudo_l.png)
-```
+<p align="center">
+<b>Figure.</b> Exploit DB Search.
+</p>
 
+<p align="center">
+<img src="./ss/16.png" width="900">
+</p>
+
+<p align="center">
+<b>Figure.</b> ExploitDB Technique.
+</p>
 ---
 
 # Root Access
@@ -486,11 +591,13 @@ The identified sudo misconfiguration was exploited using the corresponding privi
 
 Root shell obtained successfully.
 
-### Screenshot
+<p align="center">
+<img src="./ss/17.png" width="900">
+</p>
 
-```md
-![Root Access](02_images/root.png)
-```
+<p align="center">
+<b>Figure.</b> Priviledge Escalation Attained.
+</p>
 
 ---
 
