@@ -8,134 +8,149 @@ A collection of hands-on cybersecurity labs and Capture The Flag (CTF) write-ups
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/Swarup0809/CTFs-and-Labs)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Swarup0809/CTFs-and-Labs)
-![GitHub stars](https://img.shields.io/github/stars/Swarup0809/CTFs-and-Labs?style=social)
+![GitHub License](https://img.shields.io/badge/License-Educational-blue)
+![Maintained](https://img.shields.io/badge/Maintained-Yes-success)
 
 </div>
 
 ---
 
-# About
+# Overview
 
-This repository contains structured documentation of CTF challenges and cybersecurity labs completed as part of practical skill development.
+This repository serves as a centralized knowledge base for my cybersecurity practice. It contains detailed documentation of Capture The Flag (CTF) challenges, security labs, and practical exercises completed across various learning platforms.
 
-Each write-up focuses on:
+Rather than simply recording commands or solutions, each write-up emphasizes the reasoning behind every step, the methodology followed, and the technical concepts involved. The objective is to build a portfolio that reflects analytical thinking, structured problem-solving, and technical documentation skills expected in real-world cybersecurity roles.
 
-- Reconnaissance and Enumeration
-- Vulnerability Identification
-- Exploitation
-- Credential Discovery
-- Privilege Escalation
-- Digital Forensics
-- Steganography
-- Post-Exploitation Analysis
+---
 
-The objective is to document the reasoning behind each step rather than simply listing commands.
+# What You'll Find
+
+- 🧭 Structured walkthroughs following an end-to-end attack methodology
+- 🔍 Enumeration and attack surface analysis
+- 🌐 Web application security assessments
+- 🔐 Authentication and credential-based attacks
+- 🖥️ Linux and Windows privilege escalation
+- 🕵️ Digital forensics and artifact analysis
+- 🧩 Steganography and hidden data discovery
+- 📄 Professional documentation with supporting screenshots and command explanations
 
 ---
 
 # Repository Structure
 
-```
+```text
 CTFs-and-Labs/
 │
-├── Agent Sudo/
-│   ├── README.md
-│   └── ss/
-│
-├── ...
+├── Platform/
+│   ├── Challenge/
+│   │   ├── Write-up.md
+│   │   └── screenshots/
+│   │
+│   └── ...
 │
 └── README.md
 ```
 
----
-
-# Current Write-ups
-
-| Room | Platform | Difficulty | Topics |
-|------|----------|------------|--------|
-| **Agent Sudo** | TryHackMe | Easy | Nmap, Burp Suite, Hydra, FTP, ExifTool, Binwalk, Steghide, Privilege Escalation |
+Each challenge is self-contained with its own documentation, screenshots, commands, observations, and findings.
 
 ---
 
-# Methodology
+# Documentation Approach
 
-Each write-up follows a consistent methodology:
+Every write-up follows a consistent methodology inspired by real-world security assessments.
 
-```
+```text
+Reconnaissance
+      │
+      ▼
 Enumeration
       │
       ▼
-Service Analysis
+Analysis
       │
       ▼
-Initial Access
+Exploitation
       │
       ▼
-Credential Discovery
+Post-Exploitation
       │
       ▼
 Privilege Escalation
       │
       ▼
-Root Access
+Lessons Learned
 ```
 
----
-
-# Tools Frequently Used
-
-| Category | Tools |
-|-----------|-------|
-| Enumeration | Nmap, Gobuster, Netcat |
-| Web Security | Burp Suite |
-| Password Attacks | Hydra, John the Ripper |
-| Network Analysis | Wireshark |
-| Digital Forensics | ExifTool, Binwalk |
-| Steganography | Steghide |
-| Exploitation | Searchsploit, GTFOBins |
-| Linux | Bash, sudo, SSH |
-| Miscellaneous | Base64, Strings, FTP |
+This standardized approach ensures consistency, readability, and reproducibility across all documented labs.
 
 ---
 
-# Skills Demonstrated
+# Core Skills Demonstrated
 
 - Network Enumeration
-- Web Application Testing
-- Password Cracking
-- Service Enumeration
-- Linux Privilege Escalation
+- Web Application Security
+- Linux Administration
+- Privilege Escalation
+- Password Attacks
 - Digital Forensics
 - Steganography
-- Credential Harvesting
-- Vulnerability Assessment
+- Security Research
 - Technical Documentation
+- Analytical Problem Solving
 
 ---
 
-# Learning Goals
+# Purpose
 
 This repository is maintained to:
 
-- Improve practical cybersecurity skills
-- Document attack methodology
-- Build a professional security portfolio
-- Reinforce defensive and offensive security concepts
-- Maintain reusable technical notes
+- Continuously improve practical cybersecurity skills.
+- Document methodologies and technical findings.
+- Build a professional portfolio of hands-on work.
+- Reinforce concepts learned through practical application.
+- Track personal growth across different security domains.
+
+---
+
+# Who This Repository Is For
+
+- Recruiters evaluating practical cybersecurity experience.
+- Hiring managers reviewing technical documentation skills.
+- Students learning offensive and defensive security concepts.
+- CTF enthusiasts looking for structured methodologies.
+- Anyone interested in practical cybersecurity learning.
+
+---
+
+# Current Progress
+
+This repository is actively maintained and will continue to grow with additional:
+
+- Capture The Flag (CTF) challenges
+- Security labs
+- Blue Team exercises
+- Digital forensics investigations
+- Incident response scenarios
+- Active Directory labs
+- Cloud security exercises
 
 ---
 
 # Disclaimer
 
-All activities documented in this repository were performed within authorized Capture The Flag (CTF) environments or intentionally vulnerable laboratory systems for educational purposes only.
+All activities documented in this repository were performed within authorized lab environments, Capture The Flag platforms, or intentionally vulnerable systems created for educational purposes. The content is intended solely for learning, research, and skill development.
 
 ---
 
 <div align="center">
 
+### ⭐ Thanks for visiting!
+
+If you found this repository useful or insightful, feel free to explore the individual write-ups.
+
 ### Connect with Me
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/t-r-j-swarup-reddy-842154333//)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/t-r-j-swarup-reddy-842154333/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/Swarup0809)
 
 </div>
