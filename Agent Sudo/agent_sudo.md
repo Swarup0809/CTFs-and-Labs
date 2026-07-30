@@ -34,7 +34,7 @@ This repository documents the exploitation of the **Agent Sudo** TryHackMe room.
 </p>
 
 <p align="center">
-<b>Figure.</b> Agent Sudo
+<b>Figure 1.</b> Agent Sudo
 </p>
 
 # Enumeration
@@ -65,7 +65,7 @@ The scan identified the following services:
 </p>
 
 <p align="center">
-<b>Figure.</b> Nmap Scan on target ip.
+<b>Figure 2.</b> Nmap Scan on target ip.
 </p>
 The HTTP web application displayed the following message:
 
@@ -82,7 +82,7 @@ Agent R
 </p>
 
 <p align="center">
-<b>Figure.</b> Text displayed on the webpage of the target ip.
+<b>Figure 3.</b> Text displayed on the webpage of the target ip.
 </p>
 
 ---
@@ -104,7 +104,7 @@ A payload containing characters from **A-Z** was used to brute-force the User-Ag
 </p>
 
 <p align="center">
-<b>Figure 3.</b> Burp Suite intruder payload panel.
+<b>Figure 4.</b> Burp Suite intruder payload panel.
 </p>
 
 ### Observation
@@ -114,7 +114,7 @@ A payload containing characters from **A-Z** was used to brute-force the User-Ag
 </p>
 
 <p align="center">
-<b>Figure.</b> intruder attack demonstration.
+<b>Figure 5.</b> intruder attack demonstration.
 </p>
 
 Most requests returned:
@@ -143,11 +143,11 @@ The modified request was forwarded using **Repeater**, replacing the header with
 User-Agent: C
 ```
 <p align="center">
-<img src="./ss/target_ip_webpage.png" width="900">
+<img src="./ss/03_target_ip_webpage.png" width="900">
 </p>
 
 <p align="center">
-<b>Figure.</b> Text displayed on the webpage of the target ip.
+<b>Figure 6.</b> Text displayed on the webpage of the target ip.
 </p>
 
 From the Repeater these requests of user agent C are sent to the browser to view the information.
@@ -157,7 +157,7 @@ From the Repeater these requests of user agent C are sent to the browser to view
 </p>
 
 <p align="center">
-<b>Figure.</b> USer Agent C page.
+<b>Figure 7.</b> USer Agent C page.
 </p>
 
 ---
@@ -209,7 +209,7 @@ Password : crystal
 </p>
 
 <p align="center">
-<b>Figure.</b> Bruteforce attack.
+<b>Figure 8.</b> Bruteforce attack.
 </p>
 
 ---
@@ -241,7 +241,7 @@ get cutie.png
 </p>
 
 <p align="center">
-<b>Figure.</b> FTP Service login.
+<b>Figure 9.</b> FTP Service login.
 </p>
 
 <p align="center">
@@ -249,7 +249,7 @@ get cutie.png
 </p>
 
 <p align="center">
-<b>Figure.</b> To_agentJ.
+<b>Figure 10.</b> To_agentJ.
 </p>
 
 
@@ -280,7 +280,7 @@ The output indicated additional data after the PNG IEND chunk.
 </p>
 
 <p align="center">
-<b>Figure.</b> metadata analysis.
+<b>Figure 11.</b> metadata analysis.
 </p>
 
 
@@ -303,7 +303,7 @@ strings cutie.png
 </p>
 
 <p align="center">
-<b>Figure.</b> Strings Analysis.
+<b>Figure 12.</b> Strings Analysis.
 </p>
 
 
@@ -326,7 +326,7 @@ binwalk cutie.png
 </p>
 
 <p align="center">
-<b>Figure.</b> Binwalk Scan.
+<b>Figure 13.</b> Binwalk Scan.
 </p>
 
 
@@ -358,7 +358,7 @@ alien
 </p>
 
 <p align="center">
-<b>Figure.</b> Password Extraction.
+<b>Figure 14.</b> Password Extraction.
 </p>
 
 ---
@@ -386,7 +386,7 @@ alien
 </p>
 
 <p align="center">
-<b>Figure.</b> Password Extraction.
+<b>Figure 15.</b> Password Extraction.
 </p>
 
 
@@ -420,7 +420,7 @@ This value appeared to be a passphrase for the remaining image.
 </p>
 
 <p align="center">
-<b>Figure.</b> Encrypted Text File.
+<b>Figure 16.</b> Encrypted Text File.
 </p>
 
 ---
@@ -450,7 +450,7 @@ confirming it was a valid JPEG image.
 </p>
 
 <p align="center">
-<b>Figure.</b> JFIF format.
+<b>Figure 17.</b> JFIF format.
 </p>
 
 ---
@@ -488,7 +488,7 @@ was extracted.
 </p>
 
 <p align="center">
-<b>Figure.</b> File Extraction.
+<b>Figure 18.</b> File Extraction.
 </p>
 
 ---
@@ -514,7 +514,7 @@ These credentials were used to access the target as **James**.
 </p>
 
 <p align="center">
-<b>Figure.</b> James User Login.
+<b>Figure 18.</b> James User Login.
 </p>
 
 <p align="center">
@@ -522,7 +522,7 @@ These credentials were used to access the target as **James**.
 </p>
 
 <p align="center">
-<b>Figure.</b> user flag detection.
+<b>Figure 19.</b> user flag detection.
 </p>
 
 ---
@@ -547,7 +547,7 @@ sudo -l
 </p>
 
 <p align="center">
-<b>Figure.</b> Priviledge Escalation Demonstration.
+<b>Figure 20.</b> Priviledge Escalation Demonstration.
 </p>
 
 ### Why sudo -l?
@@ -565,15 +565,11 @@ Reference:
 </p>
 
 <p align="center">
-<b>Figure.</b> Exploit DB Search.
-</p>
-
-<p align="center">
 <img src="./ss/16.png" width="900">
 </p>
 
 <p align="center">
-<b>Figure.</b> ExploitDB Technique.
+<b>Figure 21.</b> ExploitDB Technique.
 </p>
 ---
 
@@ -596,7 +592,7 @@ Root shell obtained successfully.
 </p>
 
 <p align="center">
-<b>Figure.</b> Priviledge Escalation Attained.
+<b>Figure 22.</b> Priviledge Escalation Attained.
 </p>
 
 ---
