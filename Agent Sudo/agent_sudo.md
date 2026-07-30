@@ -142,14 +142,6 @@ The modified request was forwarded using **Repeater**, replacing the header with
 ```
 User-Agent: C
 ```
-<p align="center">
-<img src="./ss/03_target_ip_webpage.png" width="900">
-</p>
-
-<p align="center">
-<b>Figure 6.</b> Text displayed on the webpage of the target ip.
-</p>
-
 From the Repeater these requests of user agent C are sent to the browser to view the information.
 
 <p align="center">
