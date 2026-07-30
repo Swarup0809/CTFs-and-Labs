@@ -65,7 +65,7 @@ Agent R
 ```
 
 <p align="center">
-<img src="/ss/http_img.png" width="900">
+<img src="./ss/http_img.png" width="900">
 </p>
 
 <p align="center">
