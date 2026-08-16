@@ -16,6 +16,8 @@ I approached this room from two perspectives:
 - 🔴 **Attacker:** How can I move from an exposed web application to system access?
 - 🔵 **Defender:** What could have prevented, detected, or helped investigate each stage?
 
+> **My methodology:** Observe → Question → Test → Interpret → Defend
+
 The main attack path was:
 
 ```text
@@ -518,49 +520,11 @@ The investigation connected the address with the threat actor information refere
 
 ![Figure 24 — Reported association with LockBit](images/24.png)
 
-The room identified the address as being associated with the **LockBit ransomware group**.
+The investigation linked the wallet address to activity associated with LockBit, as referenced by the room.
 
 > **Important:** A wallet address is a useful correlation point, but an IOC by itself should not automatically be treated as definitive attribution. Attribution should be based on multiple pieces of evidence.
 
 ---
-
-# 16. Attack-to-Investigation Timeline
-
-The complete chain can be viewed as:
-
-```text
-External Exposure
-      ↓
-Nmap Enumeration
-      ↓
-WordPress Discovery
-      ↓
-WPScan
-      ↓
-Bricks Builder 1.9.5
-      ↓
-CVE-2024-25600
-      ↓
-Remote Code Execution
-      ↓
-Interactive Shell
-      ↓
-First Flag
-      ↓
-Suspicious systemd Service
-      ↓
-nm-inet-dialog
-      ↓
-Miner Configuration
-      ↓
-Encoded Wallet
-      ↓
-CyberChef Decoding
-      ↓
-Blockchain Investigation
-      ↓
-LockBit Association
-```
 
 This shows two different phases:
 
@@ -575,27 +539,9 @@ Enumerate → Identify → Research → Exploit
 ```text
 Enumerate → Identify → Correlate → Investigate
 ```
-
 ---
 
-# 17. Defender Perspective
-
-The same attack chain can be translated into defensive controls.
-
-| Attacker activity | Prevention | Detection opportunity |
-|---|---|---|
-| Web enumeration | Reduce unnecessary exposure | Web/WAF logs |
-| Vulnerable Bricks version | Patch management | Vulnerability scanning |
-| RCE attempt | Patch + application hardening | Suspicious HTTP/process activity |
-| Shell execution | Least privilege | Process creation telemetry |
-| Malicious service | Restrict service changes | Service creation/modification logs |
-| Miner execution | Application/server hardening | CPU/process anomalies |
-| Mining communication | Network controls | DNS/network telemetry |
-| Wallet IOC | Threat intelligence | IOC correlation |
-
----
-
-# 18. What Could Have Prevented the Attack?
+# 16. What Could Have Prevented the Attack?
 
 ### 1. Patch Management
 
@@ -627,33 +573,9 @@ Collect web, system, authentication, process, and network telemetry so that susp
 
 ---
 
-# 19. What Could Have Detected the Attack?
+# 18. What Could Have Detected the Attack?
 
 The most useful detection idea from this room is **behavioral correlation**.
-
-Instead of detecting one event in isolation:
-
-```text
-Suspicious HTTP request
-```
-
-look for a chain such as:
-
-```text
-Web Server
-    ↓
-Unexpected Shell
-    ↓
-Command Execution
-    ↓
-Unknown Binary
-    ↓
-New/Unexpected Service
-    ↓
-Outbound Mining Connection
-```
-
-This type of correlation can provide much stronger investigation leads.
 
 ### SIEM perspective
 
@@ -671,7 +593,7 @@ If equivalent telemetry were available in a SIEM such as Wazuh, I would look for
 
 ---
 
-# 20. Incident Response Perspective
+# 19. Incident Response Perspective
 
 If this were a real compromised server, the response should not simply be:
 
@@ -726,7 +648,7 @@ Monitor
 
 ---
 
-## 21. One Attack, Two Perspectives
+## 20. One Attack, Two Perspectives
 
 | Stage | 🔴 Attacker | 🔵 Defender |
 |---|---|---|
@@ -742,7 +664,7 @@ Monitor
 
 ---
 
-# 22. What I Learned
+# 21. What I Learned
 
 ### Technical
 
@@ -781,39 +703,9 @@ That shift from **exploitation to investigation** was the most valuable part of 
 
 ---
 
-# 23. Tools Used
-
-| Tool | Purpose |
-|---|---|
-| Nmap | Port and service enumeration |
-| Browser | Web reconnaissance |
-| WPScan | WordPress enumeration |
-| CyberChef | Decoding wallet information |
-| Blockchain explorer | Cryptocurrency address investigation |
-| Linux shell | Post-exploitation enumeration |
-| systemctl | Service investigation |
-
----
-
 # Conclusion
 
 Bricks Heist gave me a useful example of how an attack can progress from **web reconnaissance to application exploitation and then into host-level investigation**.
-
-The most important lesson was not simply finding a vulnerable component or obtaining a shell.
-
-It was learning to connect:
-
-```text
-Attack
-  ↓
-Evidence
-  ↓
-Investigation
-  ↓
-Detection
-  ↓
-Defense
-```
 
 My takeaway from the room is simple:
 
