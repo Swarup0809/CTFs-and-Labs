@@ -1,9 +1,11 @@
-# TryHackMe — Bricks Heist
+# TryHackMe — Bricks Heist Write-up
 
 > **Room:** Bricks Heist  
 > **Difficulty:** Beginner  
 > **Platform:** TryHackMe  
 > **Focus:** Web enumeration, WordPress reconnaissance, vulnerability identification, RCE, Linux enumeration, persistence investigation, cryptocurrency-miner analysis
+
+![Figure 01 — TryHackMe Bricks](images/01.png)
 
 ---
 
@@ -67,10 +69,9 @@ Added:
 ```text
 10.49.141.48    bricks.thm
 ```
+![Figure 04 — hostname assigning](images/04.png)
 
 This allowed the browser and command-line tools to resolve `bricks.thm` to the lab target.
-
-![Figure 01 — TryHackMe Bricks Heist target setup](images/01.png)
 
 ### Attacker thinking
 
@@ -87,6 +88,7 @@ I started with Nmap to identify exposed services.
 ```bash
 nmap 10.49.141.48
 ```
+![Figure 03 — nmap scan](images/03.png)
 
 The scan revealed:
 
@@ -97,7 +99,6 @@ The scan revealed:
 | 443/tcp | HTTPS | Secure web application |
 | 3306/tcp | MySQL | Database exposure |
 
-![Figure 02 — Nmap service enumeration](images/02.png)
 
 ### Attacker thinking
 
@@ -123,11 +124,13 @@ A defender should know:
 
 # 4. Web Application Enumeration
 
-Opening the website revealed the **Bricky by Bricky** application.
+![Figure 05 — brick by brick](images/05.png)
 
-![Figure 03 — Bricky by Bricky web application](images/03.png)
+Opening the website revealed the **Brick by Brick** application.
 
 I then checked accessible files such as `robots.txt`.
+
+![Figure 07 — robots.txt](images/07.png)
 
 It contained:
 
@@ -137,7 +140,6 @@ Disallow: /wp-admin/
 Allow: /wp-admin/admin-ajax.php
 ```
 
-![Figure 04 — robots.txt enumeration](images/04.png)
 
 The presence of `/wp-admin/` and other WordPress indicators suggested that the application was running WordPress.
 
@@ -146,6 +148,9 @@ The presence of `/wp-admin/` and other WordPress indicators suggested that the a
 This was a useful fingerprint.
 
 Instead of blindly testing the web application, I could now switch to **WordPress-specific enumeration**.
+
+![Figure 08 — WordPress login page](images/08.png)
+
 
 ### Defender thinking
 
@@ -164,7 +169,6 @@ Useful controls include:
 
 The WordPress login page was accessible.
 
-![Figure 05 — WordPress login page](images/05.png)
 
 This confirmed the WordPress installation and justified using WordPress-specific enumeration tools.
 
@@ -176,15 +180,17 @@ I used WPScan to identify the WordPress version, theme, and other useful informa
 
 The first scan did not complete normally because of the target's TLS configuration.
 
+![Figure 09 — Initial WPScan](images/09.png)
+
 I repeated the scan with TLS certificate verification disabled:
 
 ```bash
 wpscan --url https://bricks.thm --disable-tls-checks
 ```
 
-![Figure 06 — Initial WPScan attempt](images/06.png)
+![Figure 10 — Additional WPScan findings](images/10.png)
 
-![Figure 07 — WPScan with TLS checks disabled](images/07.png)
+![Figure 11 — WPScan findings](images/11.png)
 
 > **Note:** Disabling TLS verification can be useful in a controlled lab with an untrusted/self-signed certificate. It should not be treated as a general solution for TLS problems.
 
@@ -197,10 +203,6 @@ WPScan identified:
 - **WordPress:** 6.5
 - **Theme:** Bricks
 - **Bricks version:** 1.9.5
-
-![Figure 08 — WordPress and Bricks version information](images/08.png)
-
-![Figure 09 — Additional WPScan findings](images/09.png)
 
 The Bricks version became the most important finding.
 
@@ -220,9 +222,7 @@ The identified Bricks Builder version was associated with:
 
 The vulnerability provides a path to remote command execution on a vulnerable installation.
 
-![Figure 10 — CVE-2024-25600 exploit information](images/10.png)
-
-![Figure 11 — Exploit source/code](images/11.png)
+![Figure 12 — CVE-2024-25600 exploit information](images/12.png)
 
 ### Why this mattered
 
@@ -250,6 +250,8 @@ This was one of the main lessons from the room:
 
 > **Good enumeration reduces guesswork.**
 
+![Figure 13 — Exploit source/code](images/13.png)
+
 ### Defender thinking
 
 The same information is valuable defensively.
@@ -276,7 +278,7 @@ The exploit:
 3. Started the exploitation process.
 4. Provided an interactive shell.
 
-![Figure 12 — Exploit execution and interactive shell](images/12.png)
+![Figure 14 — Exploit execution and interactive shell](images/14.png)
 
 The shell changed the investigation from **web application enumeration** to **host-level enumeration**.
 
@@ -335,7 +337,8 @@ The first flag was:
 THM{fl46_650c844110baced87e1606453b93f22a}
 ```
 
-![Figure 13 — Locating and reading the first flag](images/13.png)
+![Figure 15 — Locating and reading the first flag](images/15.png)
+
 
 At this point, I deliberately did not treat the shell as the end of the investigation.
 
@@ -363,9 +366,9 @@ ubuntu.service
 
 was identified.
 
-![Figure 14 — Listing running systemd services](images/14.png)
+![Figure 16 — Listing running systemd services](images/16.png)
 
-![Figure 15 — Identifying ubuntu.service](images/15.png)
+![Figure 17 — Identifying ubuntu.service](images/17.png)
 
 ### Attacker thinking
 
@@ -408,19 +411,13 @@ The service was launching:
 nm-inet-dialog
 ```
 
-![Figure 16 — ubuntu.service configuration](images/16.png)
-
-![Figure 17 — nm-inet-dialog in the NetworkManager directory](images/17.png)
+![Figure 18 — ubuntu.service configuration](images/18.png)
 
 The suspicious executable was located at:
 
 ```text
 /lib/NetworkManager/nm-inet-dialog
 ```
-
-![Figure 18 — Suspicious process path](images/18.png)
-
-![Figure 19 — NetworkManager directory contents](images/19.png)
 
 ### Investigation lesson
 
@@ -446,6 +443,8 @@ This is more useful than simply recording the service name as an answer.
 
 The investigation then moved toward the miner configuration/log information.
 
+![Figure 19 — NetworkManager directory contents](images/19.png)
+
 The relevant file was:
 
 ```text
@@ -459,7 +458,6 @@ Bitcoin Miner thread Started
 Status: Mining!
 Miner()
 ```
-
 ![Figure 20 — Miner configuration/log information](images/20.png)
 
 This provided evidence that cryptocurrency-mining activity was running on the host.
@@ -728,21 +726,19 @@ Monitor
 
 ---
 
-# 21. Attacker vs Defender
+## 21. One Attack, Two Perspectives
 
-| Attacker asks | Defender asks |
-|---|---|
-| What is exposed? | Why is it exposed? |
-| What technology is running? | Is it supported and patched? |
-| Which version is installed? | Are vulnerable versions tracked? |
-| Can I exploit it? | Can exploitation be detected? |
-| Can I execute commands? | Why did the web server spawn a shell? |
-| What processes are running? | Which processes are abnormal? |
-| What service starts it? | Who created or modified the service? |
-| What is the miner doing? | How would unauthorized mining be detected? |
-| What is the wallet? | Can the IOC be correlated with other evidence? |
+| Stage | 🔴 Attacker | 🔵 Defender |
+|---|---|---|
+| Reconnaissance | What can I discover? | What is unnecessarily exposed? |
+| Enumeration | What technology/version is running? | Is it known and patched? |
+| Exploitation | Can I gain access? | Can the attempt be detected? |
+| Host Access | What can I find or execute? | What activity is abnormal? |
+| Persistence | How can I stay active? | Who created this process/service? |
+| Cryptomining | How can I use the host? | Why is the host mining? |
+| IOC | What can this evidence reveal? | Where else can this IOC be found? |
 
-> **The goal is not to choose between attacker and defender thinking. It is to understand both.**
+> **Every attacker action creates a defensive question. Understanding both perspectives is what turns exploitation knowledge into defensive security thinking.**
 
 ---
 
@@ -796,16 +792,6 @@ That shift from **exploitation to investigation** was the most valuable part of 
 | Blockchain explorer | Cryptocurrency address investigation |
 | Linux shell | Post-exploitation enumeration |
 | systemctl | Service investigation |
-
----
-
-# 24. Flags
-
-### Flag 1
-
-```text
-THM{fl46_650c844110baced87e1606453b93f22a}
-```
 
 ---
 
